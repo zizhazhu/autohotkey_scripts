@@ -1,22 +1,23 @@
-SetStoreCapslockMode, off
 Capslock::
-    if BeginTime
-        return
-    BeginTime := A_TickCount
-    return
-    
-CapsLock up::
-    gap := A_TickCount - BeginTime
-    if (gap >= 1) and (gap < 200)
-    {
+    KeyWait, Capslock
+    if (A_TimeSinceThisHotkey > 300)
+        SetTimer, mainp, -1
+    else
         Send, {Esc}
-    }
-    else if gap >= 200:
-    {
-        Send, {Ctrl}
-    }
-    BeginTime := ""
+    return
+
+mainp:
+    send, {Ctrl}
     return
 
 RCtrl::CapsLock
 
+APPSKEY & W::UP
+APPSKEY & S::DOWN
+APPSKEY & A::LEFT
+APPSKEY & D::RIGHT
+
+APPSKEY & H::MouseMove, -10, 0, 0, R
+APPSKEY & J::MouseMove, 0, 10, 0, R
+APPSKEY & K::MouseMove, 0, -10, 0, R
+APPSKEY & L::MouseMove, 10, 0, 0, R
